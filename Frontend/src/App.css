@@ -1,0 +1,33 @@
+.app {
+  display: grid;
+  grid-template-columns: 1fr 450px ;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+.header {
+  grid-column: 1 / -1;
+  background: lightblue;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+
+.main-area {
+  background: lightyellow;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.sidebar {
+  background: lightgray;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.footer {
+    grid-column: 1 / -1;
+    background: lightgreen;
+    border: 1px solid black;
+    padding: 10px;
+}
