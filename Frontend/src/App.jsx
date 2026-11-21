@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { MainArea } from './MainArea'
 
 import './App.css'
 
@@ -8,6 +9,7 @@ export function App() {
 
   return (
     <div className="app">
+      <MainArea />
 
     </div>
   )
