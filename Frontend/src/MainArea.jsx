@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { VegaChart } from "./VegaChart";
+import { MONATE} from "./konstanten"
 
 const API = "http://localhost:8000/api";
+const MONATE = ["Januar", "Februar", "März", "April", "Mai", "Juni",
+                "Juli", "August", "September", "Oktober", "November", "Dezember"];
+ 
 
-export const MainArea = ({ jahr = 2024,  monat = 1, standorte = []}) => {
+export const MainArea = ({ jahr = 2024,  monat = 1, standorte = [], setMonat}) => {
     const [specBar, setSpecBar] = useState(null);
     const [rowsBar, setRowsBar] = useState(null);
     const [specLine, setSpecLine] = useState(null);
@@ -40,13 +44,19 @@ export const MainArea = ({ jahr = 2024,  monat = 1, standorte = []}) => {
 
     return(
         <main className="main-area">
-            {specBar && rowsBar && (
-                <VegaChart spec={specBar} data={rowsBar} name="monate" />
+            <section>
+                <h2>Anzahl Passanten pro Monat im Jahr {jahr}</h2>
+                {specBar && rowsBar && (
+                    <VegaChart spec={specBar} data={rowsBar} name="monate" onClick={(zeile) => setMonat?.(zeile.monat)}/>
             )}
+            </section>
+
+            <section>
+                <h2>Anzahl Passanten pro Tag im {MONATE[monat - 1]} {jahr}</h2>
             {specLine && rowsLine && (
                 <VegaChart spec={specLine} data={rowsLine} name="tage" />
             )}
-
+            </section>
         </main>
     )
 }

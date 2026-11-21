@@ -165,7 +165,7 @@ def spec_line():
         .transform_aggregate(groupby=["von", "bis", "tagestyp"])
         .mark_rect(opacity=0.6)
         .encode(
-            x=alt.X("von:Q", axis=None),
+            x=alt.X("von:Q", title="Tag", scale=alt.Scale(nice=False)),
             x2="bis:Q",
             color=alt.Color("tagestyp:N", scale=farben, title="Tagestyp"),
         )
@@ -175,7 +175,11 @@ def spec_line():
         alt.Chart(alt.NamedData(name="tage"))
         .mark_line(point=True)
         .encode(
-            x=alt.X("tag:Q", title="Tag"),
+            x=alt.X(
+                "tag:Q",
+                title="Tag",
+                scale=alt.Scale(nice=False),
+                axis=alt.Axis(tickCount=31, format="d"),),
             y=alt.Y("passanten:Q", title="Passanten"),
             color=alt.Color("location_name:N", scale=standort_skala, title="Standort"),
             tooltip=[
