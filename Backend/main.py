@@ -1,8 +1,8 @@
-import pandas as pd
-from fastapi import FastAPI, Response
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Response, Query
 import altair as alt
+import pandas as pd
+from fastapi import FastAPI, Query, Response
+from fastapi.middleware.cors import CORSMiddleware
+
 
 
 MONATE = [

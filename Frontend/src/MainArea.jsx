@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { VegaChart } from "./VegaChart";
-import { MONATE} from "./konstanten"
+import { MONATE} from "./konstante"
 
 const API = "http://localhost:8000/api";
-const MONATE = ["Januar", "Februar", "März", "April", "Mai", "Juni",
-                "Juli", "August", "September", "Oktober", "November", "Dezember"];
  
 
 export const MainArea = ({ jahr = 2024,  monat = 1, standorte = [], setMonat}) => {
