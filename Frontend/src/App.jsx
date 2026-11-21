@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import Sidebar from './Sidebar'
+import { MainArea } from './MainArea'
 
 import './App.css'
 import Header from './Header.jsx'
@@ -11,6 +13,8 @@ export function App() {
   return (
     <div className="app">
       <Header />
+      <Sidebar />
+      <MainArea />
       <Footer />
 
     </div>
