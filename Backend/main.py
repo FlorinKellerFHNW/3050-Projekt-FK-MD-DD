@@ -5,12 +5,35 @@ from fastapi import FastAPI, Response, Query
 import altair as alt
 
 
-MONATE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
+MONATE = [
+    "Jan",
+    "Feb",
+    "Mär",
+    "Apr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Dez",
+]
+
+STANDORT_FARBEN = {
+    "Bahnhofstrasse (Mitte)": "#1f77b4",
+    "Bahnhofstrasse (Nord)": "#d62728",
+    "Bahnhofstrasse (Süd)": "#e6199a",
+    "Lintheschergasse": "#ff7f0e",
+}
 
 
 # lädt die Daten mit ausgewählten Spalten
-df = pd.read_csv("Gesamtdatensatz.csv", parse_dates=["timestamp"], usecols=[
-    "timestamp",
+df = pd.read_csv(
+    "Gesamtdatensatz.csv",
+    parse_dates=["timestamp"],
+    usecols=[
+        "timestamp",
         "location_name",
         "temperature",
         "pedestrians_count",
@@ -31,21 +54,19 @@ df["tagestyp"] = lokal.dt.dayofweek.map(lambda i: "Wochenende" if i >= 5 else "W
 
 
 # Aggregation nach Monatswerten für Balkendiagramm
-monate = (
-    df.groupby(["location_name", "jahr", "monat"], as_index=False)
-    .agg(passanten=("pedestrians_count", "sum"))
+monate = df.groupby(["location_name", "jahr", "monat"], as_index=False).agg(
+    passanten=("pedestrians_count", "sum")
 )
 
 # Aggregation Tageswerte für Liniendiagramm
-tage = (
-    df.groupby(["location_name", "jahr", "monat", "tag", "tagestyp"], as_index=False)
-    .agg(
-        passanten=("pedestrians_count", "sum"),
-        temp_min=("temperature", "min"),
-        temp_max=("temperature", "max"),
-        erwachsene=("adult_pedestrians_count", "sum"),
-        kinder=("child_pedestrians_count", "sum"),
-    )
+tage = df.groupby(
+    ["location_name", "jahr", "monat", "tag", "tagestyp"], as_index=False
+).agg(
+    passanten=("pedestrians_count", "sum"),
+    temp_min=("temperature", "min"),
+    temp_max=("temperature", "max"),
+    erwachsene=("adult_pedestrians_count", "sum"),
+    kinder=("child_pedestrians_count", "sum"),
 )
 
 # Anteil Kinder / Erwachsene
@@ -62,13 +83,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Endpoint Meta
 @app.get("/api/meta")
 def meta():
     return {
         "standorte": sorted(df["location_name"].unique().tolist()),
+        "farben": STANDORT_FARBEN,
         "verfuegbar": monate[["jahr", "monat"]].drop_duplicates().to_dict("records"),
     }
+
 
 # Endpoint Monate
 @app.get("/api/data/monate")
@@ -82,6 +106,7 @@ def data_monate(jahr: int, standorte: list[str] = Query(default=[])):
     ergebnis["monat_name"] = ergebnis["monat"].map(lambda i: MONATE[i - 1])
 
     return Response(ergebnis.to_json(orient="records"), media_type="application/json")
+
 
 # Endpoint Tage
 @app.get("/api/data/tage")
@@ -101,6 +126,7 @@ def data_tage(jahr: int, monat: int):
     ]
     return Response(auswahl.to_json(orient="records"), media_type="application/json")
 
+
 # Balkendiagramm
 @app.get("/api/spec/bar")
 def spec_bar():
@@ -119,12 +145,18 @@ def spec_bar():
     )
     return chart.to_dict()
 
+
 # Liniendiagramm
 @app.get("/api/spec/line")
 def spec_line():
     farben = alt.Scale(
         domain=["Werktag", "Wochenende"],
         range=["#cfe3f5", "#f5d9b8"],
+    )
+
+    standort_skala = alt.Scale(
+        domain=list(STANDORT_FARBEN.keys()),
+        range=list(STANDORT_FARBEN.values()),
     )
 
     hintergrund = (
@@ -145,7 +177,7 @@ def spec_line():
         .encode(
             x=alt.X("tag:Q", title="Tag"),
             y=alt.Y("passanten:Q", title="Passanten"),
-            color=alt.Color("location_name:N", title="Standort"),
+            color=alt.Color("location_name:N", scale=standort_skala, title="Standort"),
             tooltip=[
                 alt.Tooltip("location_name:N", title="Standort"),
                 alt.Tooltip("tag:Q", title="Tag"),
@@ -164,4 +196,3 @@ def spec_line():
         .properties(width="container", height=250)
     )
     return chart.to_dict()
-
