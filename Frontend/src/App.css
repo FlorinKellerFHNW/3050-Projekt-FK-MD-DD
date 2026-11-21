@@ -69,6 +69,37 @@ body {
   border-right: 1px solid #ddd;
 }
 
+.standort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.farbkreis {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.zeitraum {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.zeitraum h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.zeitraum select {
+  width: 100%;
+}
+
 .main-area {
   padding: 1rem 1.5rem;
   min-width: 0; 
