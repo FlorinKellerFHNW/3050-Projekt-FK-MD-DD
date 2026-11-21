@@ -5,7 +5,7 @@ import { MONATE} from "./konstante"
 const API = "http://localhost:8000/api";
  
 
-export const MainArea = ({ jahr = 2024,  monat = 1, ausgewaehlterStandort = [], setMonat}) => {
+export const MainArea = ({ jahr = 2024,  monat = 1, ausgewaehlteStandorte = [], setMonat}) => {
     const [specBar, setSpecBar] = useState(null);
     const [rowsBar, setRowsBar] = useState(null);
     const [specLine, setSpecLine] = useState(null);
@@ -19,7 +19,7 @@ export const MainArea = ({ jahr = 2024,  monat = 1, ausgewaehlterStandort = [], 
     }, []);
 
     useEffect(() => {
-        const standorteParam = (ausgewaehlterStandort ?? [])
+        const standorteParam = (ausgewaehlteStandorte ?? [])
             .map((name) => `&standorte=${encodeURIComponent(name)}`)
             .join("");
 
@@ -27,7 +27,7 @@ export const MainArea = ({ jahr = 2024,  monat = 1, ausgewaehlterStandort = [], 
             .then((res) => res.json())
             .then((res) => setRowsBar(res))
             .catch((err) => console.error("Monate konnten nicht geladen werden:", err));
-    }, [jahr, ausgewaehlterStandort]);
+    }, [jahr, ausgewaehlteStandorte]);
 
 
     useEffect(() => {
@@ -50,12 +50,12 @@ export const MainArea = ({ jahr = 2024,  monat = 1, ausgewaehlterStandort = [], 
     );
 
     const rowsLineMarkiert = useMemo(() => {
-        const gewaehlt = ausgewaehlterStandort ?? [];
+        const gewaehlt = ausgewaehlteStandorte ?? [];
         return rowsLine?.map((zeile) => ({
             ...zeile,
             ausgewaehlt: gewaehlt.length === 0 || gewaehlt.includes(zeile.location_name),
         }));
-    }, [rowsLine, ausgewaehlterStandort]);
+    }, [rowsLine, ausgewaehlteStandorte]);
 
 
 

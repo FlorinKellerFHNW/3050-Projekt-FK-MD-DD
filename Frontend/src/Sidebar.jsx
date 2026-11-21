@@ -1,7 +1,7 @@
 import { MONATE, STANDORT_REIHENFOLGE } from './konstante'
 
 function Sidebar({
-    standorte, farben, ausgewaehlteStandort, setAusgewaehlteStandort,
+    standorte, farben, ausgewaehlteStandorte, setAusgewaehlteStandorte,
     jahr, monat, verfuegbar, aendereJahr, setMonat,
 }) {
 const jahre = [...new Set(verfuegbar.map((v) => v.jahr))]
@@ -10,10 +10,10 @@ const sortierteStandorte = [...standorte].sort(
     (a, b) => STANDORT_REIHENFOLGE.indexOf(a) - STANDORT_REIHENFOLGE.indexOf(b)
 )
 const umschalten = (name) => {
-        if (ausgewaehlteStandort.includes(name)) {
-            setAusgewaehlteStandort(ausgewaehlteStandort.filter((n) => n !== name))
+        if (ausgewaehlteStandorte.includes(name)) {
+            setAusgewaehlteStandorte(ausgewaehlteStandorte.filter((n) => n !== name))
         } else {
-            setAusgewaehlteStandort([...ausgewaehlteStandort, name])
+            setAusgewaehlteStandorte([...ausgewaehlteStandorte, name])
         }
     }
 
@@ -26,7 +26,7 @@ const umschalten = (name) => {
                         <label className="standort">
                             <input
                                 type="checkbox"
-                                checked={ausgewaehlteStandort.includes(name)}
+                                checked={ausgewaehlteStandorte.includes(name)}
                                 onChange={() => umschalten(name)}
                             />
                             <span className="farbkreis" style={{ backgroundColor: farben[name] }} />

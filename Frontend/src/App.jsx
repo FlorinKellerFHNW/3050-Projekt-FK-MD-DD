@@ -13,7 +13,7 @@ export function App() {
   const [standorte, setStandorte] = useState([])
   const [farben, setFarben] = useState({})
   const [verfuegbar, setVerfuegbar] = useState([])
-  const [ausgewaehlteStandort, setAusgewaehlteStandort] = useState([])
+  const [ausgewaehlteStandorte, setAusgewaehlteStandorte] = useState([])
   const [jahr, setJahr] = useState(2024)
   const [monat, setMonat] = useState(1)
 
@@ -26,7 +26,7 @@ export function App() {
     })
   .then((daten) => {
     setStandorte(daten.standorte)
-    setAusgewaehlteStandort(daten.standorte)
+    setAusgewaehlteStandorte(daten.standorte)
     setFarben(daten.farben)
     setVerfuegbar(daten.verfuegbar)
   })
@@ -47,8 +47,8 @@ export function App() {
       <Sidebar
         standorte={standorte}
         farben={farben}
-        ausgewaehlteStandort={ausgewaehlteStandort}
-        setAusgewaehlteStandort={setAusgewaehlteStandort}
+        ausgewaehlteStandorte={ausgewaehlteStandorte}
+        setAusgewaehlteStandorte={setAusgewaehlteStandorte}
         jahr={jahr}
         monat={monat}
         verfuegbar={verfuegbar}
@@ -59,7 +59,7 @@ export function App() {
         jahr={jahr}
         monat={monat}
         setMonat={setMonat}
-        ausgewaehlteStandort={ausgewaehlteStandort}
+        ausgewaehlteStandorte={ausgewaehlteStandorte}
       />
       <Footer />
 
