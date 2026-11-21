@@ -1,7 +1,8 @@
 import { MONATE, STANDORT_REIHENFOLGE } from './konstante'
+import Karte from './Karte'
 
 function Sidebar({
-    standorte, farben, ausgewaehlteStandorte, setAusgewaehlteStandorte,
+    standorte, farben, ausgewaehlteStandorte, umschalten,
     jahr, monat, verfuegbar, aendereJahr, setMonat,
 }) {
 const jahre = [...new Set(verfuegbar.map((v) => v.jahr))]
@@ -9,13 +10,6 @@ const monate = verfuegbar.filter((v) => v.jahr === jahr).map((v) => v.monat)
 const sortierteStandorte = [...standorte].sort(
     (a, b) => STANDORT_REIHENFOLGE.indexOf(a) - STANDORT_REIHENFOLGE.indexOf(b)
 )
-const umschalten = (name) => {
-        if (ausgewaehlteStandorte.includes(name)) {
-            setAusgewaehlteStandorte(ausgewaehlteStandorte.filter((n) => n !== name))
-        } else {
-            setAusgewaehlteStandorte([...ausgewaehlteStandorte, name])
-        }
-    }
 
     return (
         <aside className="sidebar">
@@ -38,7 +32,11 @@ const umschalten = (name) => {
 
             <section>
                 <h2>Karte</h2>
-                {/* Karte */}
+                <Karte
+                    farben={farben}
+                    ausgewaehlteStandorte={ausgewaehlteStandorte}
+                    umschalten={umschalten}
+                />
             </section>
 
             <section>
