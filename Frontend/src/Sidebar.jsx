@@ -1,23 +1,33 @@
-import { MONATE } from './konstante'
+import { MONATE, STANDORT_REIHENFOLGE } from './konstante'
 
 function Sidebar({
-    standorte, farben, ausgewaehlterStandort, setAusgewaehlterStandort,
+    standorte, farben, ausgewaehlteStandort, setAusgewaehlteStandort,
     jahr, monat, verfuegbar, aendereJahr, setMonat,
 }) {
 const jahre = [...new Set(verfuegbar.map((v) => v.jahr))]
 const monate = verfuegbar.filter((v) => v.jahr === jahr).map((v) => v.monat)
+const sortierteStandorte = [...standorte].sort(
+    (a, b) => STANDORT_REIHENFOLGE.indexOf(a) - STANDORT_REIHENFOLGE.indexOf(b)
+)
+const umschalten = (name) => {
+        if (ausgewaehlteStandort.includes(name)) {
+            setAusgewaehlteStandort(ausgewaehlteStandort.filter((n) => n !== name))
+        } else {
+            setAusgewaehlteStandort([...ausgewaehlteStandort, name])
+        }
+    }
 
     return (
         <aside className="sidebar">
             <section>
                 <h2>Standorte</h2>
-                {standorte.map((name) => (
+                {sortierteStandorte.map((name) => (
                     <div key={name}>
                         <label className="standort">
                             <input
                                 type="checkbox"
-                                checked={name === ausgewaehlterStandort}
-                                onChange={() => setAusgewaehlterStandort(name === ausgewaehlterStandort ? null : name)}
+                                checked={ausgewaehlteStandort.includes(name)}
+                                onChange={() => umschalten(name)}
                             />
                             <span className="farbkreis" style={{ backgroundColor: farben[name] }} />
                             {name}
@@ -33,16 +43,14 @@ const monate = verfuegbar.filter((v) => v.jahr === jahr).map((v) => v.monat)
 
             <section>
                 <h2>Zeitraum</h2>
-                <div>
+                <div className="zeitraum">
                     <h3>Jahr</h3>
                     <select value={jahr} onChange={(e) => aendereJahr(Number(e.target.value))}>
                         {jahre.map((j) => (
                             <option key={j} value={j}>{j}</option>
                         ))}
                     </select>
-                </div>
 
-                <div>
                     <h3>Monat</h3>
                     <select value={monat} onChange={(e) => setMonat(Number(e.target.value))}>
                         {monate.map((m) => (
