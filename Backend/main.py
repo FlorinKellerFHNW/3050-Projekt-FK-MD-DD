@@ -132,10 +132,12 @@ def data_tage(jahr: int, monat: int):
 def spec_bar():
     chart = (
         alt.Chart(alt.NamedData(name="monate"))
-        .mark_bar()
+        .mark_bar(cursor="pointer")
         .encode(
             x=alt.X("monat_name:O", sort=MONATE, title="Monat"),
             y=alt.Y("passanten:Q", title="Passanten"),
+            color=alt.condition("datum.aktiv", alt.value("#1f3a6b"), alt.value("#a9b8d0")),
+
             tooltip=[
                 alt.Tooltip("monat_name:O", title="Monat"),
                 alt.Tooltip("passanten:Q", title="Passanten", format=","),
@@ -181,7 +183,10 @@ def spec_line():
                 scale=alt.Scale(nice=False),
                 axis=alt.Axis(tickCount=31, format="d"),),
             y=alt.Y("passanten:Q", title="Passanten"),
-            color=alt.Color("location_name:N", scale=standort_skala, title="Standort"),
+            color=alt.Color("location_name:N",
+             scale=standort_skala, title="Standort"),
+            opacity=alt.condition("datum.ausgewaehlt", alt.value(1), alt.value(0.15)),
+
             tooltip=[
                 alt.Tooltip("location_name:N", title="Standort"),
                 alt.Tooltip("tag:Q", title="Tag"),
