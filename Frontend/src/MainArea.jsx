@@ -39,7 +39,7 @@ export const MainArea = ({ jahr = 2024,  monat = 1, standorte = []}) => {
 
 
     return(
-        <main>
+        <main className="main-area">
             {specBar && rowsBar && (
                 <VegaChart spec={specBar} data={rowsBar} name="monate" />
             )}

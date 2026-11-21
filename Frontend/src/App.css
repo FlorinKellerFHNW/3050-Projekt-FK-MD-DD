@@ -1,74 +1,75 @@
-/* Grundeinstellungen für die ganze Seite */
-
 body {
-  margin: 0;                                  /* Browser-Standardrand (8px) entfernen, sonst weisser Rand rundherum */
-  font-family: system-ui, Arial, sans-serif;  /* moderne Systemschrift, Arial als Ersatz */
-  color: #222;                              /* Standard-Textfarbe: fast schwarz */
-  background-color: #fff;                   /* Hintergrund der Seite */
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  color: #222;
+  background-color: #fff;
 }
-
-
-/* App-Layout: Header oben, Inhalt Mitte, Footer unten */
 
 .app {
-  min-height: 100vh;                /* App ist mindestens so hoch wie das Browserfenster */
-  display: flex;
-  flex-direction: column;           /* Header, Inhalt, Footer untereinander */
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
 }
 
-
-/* Header */
 
 .header {
-  display: grid;                          /* Raster statt Flexbox */
-  grid-template-columns: 1fr auto 1fr;    /* links und rechts gleich breit, Mitte so breit wie der Titel */
-  align-items: center;                    /* alles vertikal mittig ausrichten */
-  gap: 2rem;                              /* Mindestabstand zwischen den drei Spalten */
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
 
-  padding: 1rem 1.5rem;                   /* innen: oben/unten 1rem, links/rechts 1.5rem */
-  background-color: #fff;               /* weiss, damit der weisse JPG-Hintergrund des Logos nicht auffällt */
-  border-bottom: 2px solid #1f3a6b;     /* dunkelblaue Linie unter dem Header */
+  padding: 1rem 1.5rem;
+  background-color: #fff;
+  border-bottom: 2px solid #1f3a6b;
 }
 
-
 .header-info {
-  font-size: 0.95rem;               /* etwas kleiner als der Titel */
-  line-height: 1.4;                 /* etwas Luft zwischen den Zeilen */
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 .header-school {
-  font-weight: bold;                /* "FHNW" fett */
-  font-size: 1.1rem;                /* leicht grösser als der Modulname */
-  margin-bottom: 0.25rem;           /* kleiner Abstand zur Zeile darunter */
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
 }
 
 .header-title {
-  margin: 0;                        /* Browser-Standardabstand des h1 entfernen */
-  font-size: 2.2rem;                /* grosser Titel */
-  font-weight: normal;              /* im Screenshot nicht fett */
-  text-align: center;               /* falls der Titel umbricht: zentriert */
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: normal;
+  text-align: center;
 }
 
 .header-logo {
-  height: 40px;                     /* nur Höhe setzen, Breite passt sich an, kein Verzerren */
-  justify-self: end;                /* in seiner Grid-Spalte ganz nach rechts */
+  height: 40px;
+  justify-self: end;
 }
 
-
-/* Footer */
-
 .footer {
-  margin-top: auto;                 /* schiebt den Footer ganz nach unten (bis es einen Inhaltsbereich mit flex: 1 gibt) */
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 
-  display: flex;                    /* Kinder (die 3 <span>) nebeneinander */
-  justify-content: space-between;   /* erstes links, letztes rechts, mittleres in der Mitte */
-  align-items: center;              /* vertikal mittig, falls ein Text umbricht */
-  gap: 1rem;                        /* Mindestabstand zwischen den Teilen */
+  padding: 1rem 1.5rem;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
 
-  padding: 1rem 1.5rem;             /* innen: oben/unten 1rem, links/rechts 1.5rem */
-  background-color: #f5f5f5;      /* hellgrau wie im Screenshot */
-  border-top: 1px solid #ddd;     /* feine Trennlinie zum Inhalt */
+  font-size: 0.9rem;
+  color: #444;
+}
 
-  font-size: 0.9rem;                /* etwas kleiner als der normale Text */
-  color: #444;                    /* dunkelgrau statt hartem Schwarz */
+.sidebar {
+  padding: 1rem 1.5rem;
+  background-color: #f5f5f5;
+  border-right: 1px solid #ddd;
+}
+
+.main-area {
+  padding: 1rem 1.5rem;
+  min-width: 0; 
 }
