@@ -34,6 +34,15 @@ export function App() {
 }, [])
 
 
+  // Standort an- oder abwählen (für Checkboxen und Karte). Das alte Array wird nie verändert.
+  const umschalten = (name) => {
+    if (ausgewaehlteStandorte.includes(name)) {
+      setAusgewaehlteStandorte(ausgewaehlteStandorte.filter((n) => n !== name))
+    } else {
+      setAusgewaehlteStandorte([...ausgewaehlteStandorte, name])
+    }
+  }
+
   const aendereJahr = (neuesJahr) => {
   setJahr(neuesJahr)
   const monate = verfuegbar.filter((v) => v.jahr === neuesJahr).map((v) => v.monat)
@@ -48,7 +57,7 @@ export function App() {
         standorte={standorte}
         farben={farben}
         ausgewaehlteStandorte={ausgewaehlteStandorte}
-        setAusgewaehlteStandorte={setAusgewaehlteStandorte}
+        umschalten={umschalten}
         jahr={jahr}
         monat={monat}
         verfuegbar={verfuegbar}
