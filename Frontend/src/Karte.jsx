@@ -31,7 +31,7 @@ function Karte({ farben, ausgewaehlteStandorte, umschalten }) {
                             color: farbe,
                             fillColor: farbe,
                             weight: 3,
-                            opacity: istGewaehlt ? 1 : 0.15,
+                            opacity: istGewaehlt ? 1 : 0.5,
                             fillOpacity: istGewaehlt ? 0.5 : 0.15,
                         }}
                         eventHandlers={{ click: () => umschalten(name) }}
