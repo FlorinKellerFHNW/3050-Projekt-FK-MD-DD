@@ -21,10 +21,10 @@ MONATE = [
 ]
 
 STANDORT_FARBEN = {
-    "Bahnhofstrasse (Mitte)": "#1f77b4",
-    "Bahnhofstrasse (Nord)": "#d62728",
-    "Bahnhofstrasse (Süd)": "#e6199a",
-    "Lintheschergasse": "#ff7f0e",
+    "Bahnhofstrasse (Mitte)": "#0072B2",
+    "Bahnhofstrasse (Nord)": "#D55E00",
+    "Bahnhofstrasse (Süd)": "#009E73",
+    "Lintheschergasse": "#6A3D9A",
 }
 
 
@@ -153,7 +153,7 @@ def spec_bar():
 def spec_line():
     farben = alt.Scale(
         domain=["Werktag", "Wochenende"],
-        range=["#cfe3f5", "#f5d9b8"],
+        range=["#E5E3E3", "#CFC8C8"],
     )
 
     standort_skala = alt.Scale(
@@ -181,7 +181,7 @@ def spec_line():
                 "tag:Q",
                 title="Tag",
                 scale=alt.Scale(nice=False),
-                axis=alt.Axis(tickCount=31, format="d"),),
+                axis=alt.Axis(tickCount=31, format="d", grid=False),),
             y=alt.Y("passanten:Q", title="Passanten"),
             color=alt.Color("location_name:N",
              scale=standort_skala, title="Standort"),
