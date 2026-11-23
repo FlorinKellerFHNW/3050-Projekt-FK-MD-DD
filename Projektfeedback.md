@@ -5,34 +5,12 @@ Grundlage: Aufgabenstellung Projektarbeit (PDF), Folien WID 1–8, Übungen (ink
 Legende: **Priorität** hoch = Minimalanforderung nicht erfüllt, mittel = Qualität/Prüfungsrisiko, tief = Aufräumen.
 
 ---
-
-## 1. Fehlende Anforderungen (Priorität hoch)
-
-### 1.1 Fokusfrage nicht beantwortet
-- **Kritik:** In `Forschungsfrage.txt` steht: «An welchem Tag pro Monat ist das Personenaufkommen pro Standort am höchsten?» Die App zeigt Monatsbalken und Tageslinien, markiert aber keinen Spitzentag und beantwortet die Frage nicht direkt.
-- **Warum:** Die erste Minimalanforderung lautet «Die Web-Applikation beantwortet eine der Fokusfragen». Die Nutzenden müssten die Antwort selbst im Liniendiagramm suchen.
-- **Vorschlag:** Backend berechnet pro Standort den Tag mit dem Maximum (`idxmax`). Das Frontend markiert ihn im Liniendiagramm und nennt ihn in einem Text.
-
-### 1.2 README.md ist leer
-- **Kritik:** Die Datei hat 1 Byte.
-- **Warum:** Die README ist Teil der Finalisierung. Dozierende müssen Inhalt, Fokus und Startbefehle für Frontend und Backend finden, um die App auf localhost zu starten.
-- **Vorschlag:** Kurzbeschreibung, Fokusfrage, Technologien, Start (`uvicorn main:app --reload`, `npm i`, `npm run dev`), Ports und Voraussetzungen (Python-Pakete) ergänzen.
-
-### 1.3 MUI nicht eingebaut
-- **Kritik:** Es gibt kein `@mui/material` in `package.json`. Checkboxen und Dropdowns sind rohes HTML (`<input>`, `<select>`).
-- **Warum:** Die Aufgabenstellung nennt «React, MUI und CSS für das User-Interface». MUI war Stoff in WID 6 und Übung im Erdbebenmonitor.
-- **Vorschlag:** `Select`, `Checkbox`/`FormControlLabel` und evtl. `Typography` aus MUI in der Sidebar verwenden.
-
-
----
-
 ## 2. Code, der im Modul nicht behandelt wurde (Priorität mittel, Prüfungsrisiko)
 
 In der mündlichen Prüfung müssen auch Teile erklärt werden, die die KI geschrieben hat. Die folgenden Konstrukte kommen in Folien und Übungen nicht oder nur ansatzweise vor.
 
 | Stelle | Konstrukt | Warum kritisch | Vorschlag |
 |---|---|---|---|
-| `MainArea.jsx` | `useMemo` (`rowsBarMarkiert`, `rowsLineMarkiert`) | In keiner Übung und keiner Folie vorhanden, ausserdem nicht nötig für die Funktion. | Durch normale Variablen ersetzen oder genau erklären können. |
 | `VegaChart.jsx` | `onClickRef` und `latest.current = data` | `useRef` wird in der Lektion-9-Vorlage gezeigt, das Muster mit dem Click-Handler-Ref nicht. | Muster im Kommentar erklären oder Handler als Prop direkt nutzen. |
 | `VegaChart.jsx` | `view.addEventListener("click", …)` | Klick-Events in Vega sind nicht Stoff. | Kurz dokumentieren, wie Vega-Events funktionieren. |
 | `main.py` | `alt.condition("datum.aktiv", …)` und `datum.ausgewaehlt` | Vega-Expressions gehen über das Altair-Tutorial hinaus. | In der README oder im Code kommentieren. |

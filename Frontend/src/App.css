@@ -96,3 +96,9 @@ body {
   padding: 1rem 1.5rem;
   min-width: 0; 
 }
+
+.fokusfrage {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
