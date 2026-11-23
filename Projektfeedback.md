@@ -102,3 +102,20 @@ In der mündlichen Prüfung müssen auch Teile erklärt werden, die die KI gesch
 4. Alle Konstrukte aus Abschnitt 2 gemeinsam durchgehen und erklären können.
 5. Fehler- und Lade-Feedback sowie Datenlücken-Hinweis (3.1, 3.2).
 6. Aufräumen (Abschnitt 4).
+
+---
+
+## 7. Offene Entscheidung: Karte beim Zurücksetzen-Button
+
+- **Stand:** Der Button «Zurücksetzen» in der Sidebar setzt Standorte (Checkboxen und Karte), Jahr und Monat auf den Startwert. Der Kartenausschnitt (Zoom und Verschiebung) wird mit der `key`-Variante zurückgesetzt. Umgesetzt ist die `key`-Variante.
+- **Besprechen:** Welche Variante wir für den Kartenausschnitt verwenden.
+
+| | `key`-Variante (aktuell) | `useMap`-Variante |
+|---|---|---|
+| Idee | `<Karte key={resetZaehler}>`: Ändert sich der `key`, baut React die Karte neu auf, und sie startet wieder mit `bounds={AUSSCHNITT}`. | Hilfskomponente im `MapContainer` ruft in einem `useEffect` `map.fitBounds(AUSSCHNITT)` auf, sobald sich der Zähler ändert. |
+| Änderung in `Karte.jsx` | keine | Hilfskomponente, `useEffect`, Imports `useMap` und `useEffect` |
+| Im Modul behandelt | `key` nur bei `.map()`-Listen. Als Neu-Aufbau-Trick nicht, aber dasselbe Prinzip wie bei den Zonen in `Karte.jsx`. | `useMap` kurz in L6 erwähnt (Hinweis, kein Beispielcode). `useEffect` mit Abhängigkeiten in der Übung zu Web-APIs. |
+| Verhalten | Karte lädt kurz neu, Kacheln flackern. | Karte fährt ohne Flackern zurück. |
+| Erklärbarkeit | einfacher | aufwendiger |
+
+- **Zu klären:** Bleibt es bei `key`, oder wechseln wir zu `useMap`? Bei `useMap` müsste der Prop-Name von `key={resetZaehler}` auf eine normale Prop (`resetZaehler={resetZaehler}`) geändert werden.

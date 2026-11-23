@@ -8,14 +8,17 @@ import Footer from './Footer.jsx'
 
 const API = 'http://localhost:8000/api'
 
+const STANDARD_JAHR = 2024
+const STANDARD_MONAT = 1
 
 export function App() {
   const [standorte, setStandorte] = useState([])
   const [farben, setFarben] = useState({})
   const [verfuegbar, setVerfuegbar] = useState([])
   const [ausgewaehlteStandorte, setAusgewaehlteStandorte] = useState([])
-  const [jahr, setJahr] = useState(2024)
-  const [monat, setMonat] = useState(1)
+  const [jahr, setJahr] = useState(STANDARD_JAHR)
+  const [monat, setMonat] = useState(STANDARD_MONAT)
+  const [resetZaehler, setResetZaehler] = useState(0)
 
 
   useEffect(() => {
@@ -49,6 +52,12 @@ export function App() {
   if (!monate.includes(monat)) setMonat(monate[0])
 }
 
+const zuruecksetzen = () => {
+  setAusgewaehlteStandorte(standorte)
+  setJahr(STANDARD_JAHR)
+  setMonat(STANDARD_MONAT)
+  setResetZaehler(resetZaehler + 1)
+}
 
   return (
     <div className="app">
@@ -63,6 +72,8 @@ export function App() {
         verfuegbar={verfuegbar}
         aendereJahr={aendereJahr}
         setMonat={setMonat}
+        zuruecksetzen={zuruecksetzen}
+        resetZaehler={resetZaehler}
       />
       <MainArea 
         jahr={jahr}
