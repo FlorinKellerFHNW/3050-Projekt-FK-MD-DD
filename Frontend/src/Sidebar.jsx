@@ -1,4 +1,5 @@
 import { MONATE, STANDORT_REIHENFOLGE } from './konstante'
+import { Checkbox, FormControlLabel, Stack } from '@mui/material'
 import Karte from './Karte'
 
 function Sidebar({
@@ -17,15 +18,20 @@ const sortierteStandorte = [...standorte].sort(
                 <h2>Standorte</h2>
                 {sortierteStandorte.map((name) => (
                     <div key={name}>
-                        <label className="standort">
-                            <input
-                                type="checkbox"
-                                checked={ausgewaehlteStandorte.includes(name)}
-                                onChange={() => umschalten(name)}
-                            />
-                            <span className="farbkreis" style={{ backgroundColor: farben[name] }} />
-                            {name}
-                        </label>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={ausgewaehlteStandorte.includes(name)}
+                                    onChange={() => umschalten(name)}
+                                />
+                            }
+                            label={
+                                <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                                    <span className="farbkreis" style={{ backgroundColor: farben[name] }} />
+                                    <span>{name}</span>
+                                </Stack>
+                            }
+                        />
                     </div>
                 ))}
             </section>

@@ -69,14 +69,6 @@ body {
   border-right: 1px solid #ddd;
 }
 
-.standort {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 4px 0;
-  cursor: pointer;
-}
-
 .farbkreis {
   width: 14px;
   height: 14px;
