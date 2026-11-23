@@ -1,10 +1,10 @@
 import { MONATE, STANDORT_REIHENFOLGE } from './konstante'
-import { Checkbox, FormControlLabel, Stack } from '@mui/material'
+import { Button, Checkbox, FormControlLabel, Stack } from '@mui/material'
 import Karte from './Karte'
 
 function Sidebar({
     standorte, farben, ausgewaehlteStandorte, umschalten,
-    jahr, monat, verfuegbar, aendereJahr, setMonat,
+    jahr, monat, verfuegbar, aendereJahr, setMonat, zuruecksetzen, resetZaehler,
 }) {
 const jahre = [...new Set(verfuegbar.map((v) => v.jahr))]
 const monate = verfuegbar.filter((v) => v.jahr === jahr).map((v) => v.monat)
@@ -39,6 +39,7 @@ const sortierteStandorte = [...standorte].sort(
             <section>
                 <h2>Karte</h2>
                 <Karte
+                    key={resetZaehler}
                     farben={farben}
                     ausgewaehlteStandorte={ausgewaehlteStandorte}
                     umschalten={umschalten}
@@ -63,6 +64,28 @@ const sortierteStandorte = [...standorte].sort(
                     </select>
                 </div>
             </section>
+
+            <section>
+                <Button
+                    variant="outlined"
+                    onClick={zuruecksetzen}
+                    sx={{
+                        color: 'black',
+                        borderColor: 'black',
+                        borderWidth: 2,
+                        fontSize: '1rem',
+                        textTransform: 'none',
+                        mt: '1.25rem',
+                        '&:hover': {
+                            borderColor: 'black',
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(0, 0, 0, 0.06)',
+                        },
+                    }}
+                >
+                    Zurücksetzen
+                </Button>
+            </section>            
 
         </aside>
     );
